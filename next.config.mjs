@@ -9,13 +9,14 @@ const nextConfig = {
   },
   async headers() {
     return [
-      {
-        source: '/assets/rosario/video/:path*',
-        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
-      },
+      // general rule first: a later matching rule wins, so the video rule must come last
       {
         source: '/assets/rosario/:path*',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=2592000' }],
+      },
+      {
+        source: '/assets/rosario/video/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
       },
     ];
   },

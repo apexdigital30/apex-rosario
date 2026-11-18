@@ -128,7 +128,31 @@ function FilmHero() {
   // choose source only after mount (keeps SSR + first client render identical)
   const [src, setSrc] = useState<string | null>(null);
   useEffect(() => {
-    setSrc(isMobile ? hero.videoMobile : hero.videoDesktop);
+    // Download the whole film into memory first, then scrub the in-memory copy.
+    // Scrubbing a streaming file stalls on every seek past what has arrived,
+    // which made the film look frozen while scrolling on slower connections.
+    // The poster stays up until the film is fully loaded.
+    const url = isMobile ? hero.videoMobile : hero.videoDesktop;
+    let objectUrl: string | null = null;
+    let cancelled = false;
+    setSrc(null);
+    fetch(url)
+      .then((r) => {
+        if (!r.ok) throw new Error(String(r.status));
+        return r.blob();
+      })
+      .then((blob) => {
+        if (cancelled) return;
+        objectUrl = URL.createObjectURL(blob);
+        setSrc(objectUrl);
+      })
+      .catch(() => {
+        if (!cancelled) setSrc(url); // fall back to streaming the file directly
+      });
+    return () => {
+      cancelled = true;
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
   }, [isMobile]);
 
   const scrollVh = isMobile ? hero.scrollVhMobile : hero.scrollVh;
@@ -298,10 +322,10 @@ function FilmHero() {
           className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-navy/40 to-transparent"
         />
 
-        {/* loading state — only while nothing is on screen yet */}
+        {/* loading state — a small spinner over the poster while the film downloads */}
         {!ready && !painted && !staticMode && (
-          <div className="absolute inset-0 flex items-center justify-center bg-navy/25">
-            <span className="h-8 w-8 animate-spin rounded-full border border-pearl/25 border-t-gold" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-10 flex justify-center">
+            <span className="h-7 w-7 animate-spin rounded-full border border-pearl/30 border-t-gold" />
           </div>
         )}
 

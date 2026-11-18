@@ -97,13 +97,13 @@ export const hero = {
    * only moves while the page scrolls. The /assets/rosario/video path is cached
    * immutable, so a new film needs a NEW file name.
    */
-  videoDesktop: '/assets/rosario/video/rosario-hero-v5-desktop.mp4',
+  videoDesktop: '/assets/rosario/video/rosario-hero-v7-desktop.mp4',
   /**
    * Phones get their own PORTRAIT film (supplied 2026-10-24,
    * "Architectural_day-to-night_hyper…_20261024121746_processed_gwr_video_mvp.mp4",
    * 1080×1920, 8 s), encoded 720×1280 all-keyframe CRF 25 — shown full-screen.
    */
-  videoMobile: '/assets/rosario/video/rosario-hero-v6-mobile.mp4',
+  videoMobile: '/assets/rosario/video/rosario-hero-v7-mobile.mp4',
   posterMobile: '/assets/rosario/hero/rosario-hero-v6-mobile-poster.jpg',
   /** First frame of the film — loading poster + reduced-motion fallback. */
   poster: '/assets/rosario/hero/rosario-hero-v5-poster.webp',
@@ -648,7 +648,19 @@ export const construction: {
   intro: 'Construction work at Apex Rosario has begun. Stay updated with the latest progress and site developments.',
   emptyNote: 'Construction Has Started',
   photoSlots: ['Site progress photo', 'Towers A & B progress', 'Towers C & D progress'],
-  updates: [],
+  updates: [
+    {
+      date: 'November 2026',
+      title: 'Construction Has Started',
+      note: 'Site clearing and levelling are under way across the Apex Rosario plot, with excavators on site and the boundary hoarding in place.',
+      // Site photos taken 17 Nov 2026 (supplied by the Apex digital team); location data stripped.
+      images: [
+        { src: `/assets/rosario/construction/2026-11/01.jpg?v=${assetVersion}`, alt: 'The Apex Rosario site being cleared and levelled, with a water tanker and an excavator, November 2026.', w: 2000, h: 1125, caption: 'Site clearing and levelling' },
+        { src: `/assets/rosario/construction/2026-11/02.jpg?v=${assetVersion}`, alt: 'The boundary hoarding with Apex signage around the Apex Rosario site, November 2026.', w: 2000, h: 1125, caption: 'Boundary hoarding in place' },
+        { src: `/assets/rosario/construction/2026-11/03.jpg?v=${assetVersion}`, alt: 'An excavator on the Apex Rosario site beside the Apex hoarding, November 2026.', w: 2000, h: 1125, caption: 'Excavator on site' },
+      ],
+    },
+  ],
 };
 
 /* -------------------------------------------------------------------------- */
