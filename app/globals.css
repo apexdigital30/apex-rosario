@@ -1,0 +1,237 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ---- APEX ROSARIO palette (brand colours, checked against the brochure) ---- */
+  --navy: #623736;
+  --gold: #c3ad9f;
+  --stone: #c3ad9f;
+  --pearl: #ffffff;
+
+  --color-primary: #623736;
+  --color-secondary: #c3ad9f;
+  --color-accent: #c3ad9f;
+  --color-background: #ffffff;
+  --color-surface: #ffffff;
+  --color-text: #623736;
+  --color-text-light: #ffffff;
+  --color-border: rgba(98, 55, 54, 0.14);
+
+  /* No site header — this is just a small scroll-margin for anchor jumps. */
+  --header-h: 0px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--pearl);
+  color: var(--navy);
+  font-family: var(--font-sans), 'Jost', system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  font-weight: 400;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg,
+video,
+canvas,
+iframe {
+  max-width: 100%;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+/* ---- typographic helpers ---- */
+.font-display {
+  font-family: var(--font-display), 'Bodoni Moda', Georgia, serif;
+}
+.font-deco {
+  font-family: var(--font-deco), 'Marcellus', Georgia, serif;
+}
+
+.label-eyebrow {
+  font-family: var(--font-sans), 'Jost', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* ---- focus visibility ---- */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---- scroll-reveal base state (progressively enhanced) ---- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(30px);
+  will-change: opacity, transform;
+}
+.reveal-ready [data-reveal] {
+  transition: opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ---- masked image reveal ("soft focus -> sharp") ---- */
+[data-focus] {
+  clip-path: inset(0 0 12% 0);
+  filter: blur(10px);
+  transform: scale(1.05);
+  will-change: clip-path, filter, transform;
+}
+.reveal-ready [data-focus] {
+  transition: clip-path 1.3s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-focus].is-visible {
+  clip-path: inset(0 0 0 0);
+  filter: none;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-focus] {
+    clip-path: none !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}
+
+/* ---- mobile menu quick fade ---- */
+@keyframes menu-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.menu-in {
+  animation: menu-in 0.24s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu-in {
+    animation: none;
+  }
+}
+
+/* ---- hero scrub ---- */
+.hero-scroll {
+  position: relative;
+}
+.hero-sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll {
+    height: 100svh !important;
+  }
+}
+
+/* hide scrollbars on horizontal rails while keeping scroll */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.balance {
+  text-wrap: balance;
+}
+
+/* thin brand divider */
+.rule-gold {
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), rgba(195, 173, 159, 0));
+}
+
+/* footer native <details> accordion — open on desktop */
+.footer-acc > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.footer-acc > summary::-webkit-details-marker {
+  display: none;
+}
+.footer-acc > summary .acc-icon {
+  transition: transform 0.25s ease;
+}
+.footer-acc[open] > summary .acc-icon {
+  transform: rotate(45deg);
+}
+@media (min-width: 768px) {
+  .footer-acc > summary {
+    cursor: default;
+    pointer-events: none;
+  }
+  .footer-acc > summary .acc-icon {
+    display: none;
+  }
+  .footer-acc > .acc-body {
+    display: block !important;
+    height: auto !important;
+  }
+}
+
+/* specifications accordion */
+.spec-acc > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.spec-acc > summary::-webkit-details-marker {
+  display: none;
+}
+.spec-acc > summary .spec-icon {
+  transition: transform 0.25s ease;
+}
+.spec-acc[open] > summary .spec-icon {
+  transform: rotate(45deg);
+}
