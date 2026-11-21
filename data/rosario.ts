@@ -937,8 +937,8 @@ export const announcement = {
 /* -------------------------------------------------------------------------- */
 
 export const siteMeta = {
-  title: 'Apex Rosario | 3 & 4 BHK Royal Residences in Siddharth Vihar, Ghaziabad',
+  title: 'Apex Rosario Siddharth Vihar | Luxury 3 & 4 BHK Flats',
   description:
-    'Apex Rosario by the Apex Group — classically inspired 3 & 4 BHK residences in four domed towers on approx. 4.9 acres at Siddharth Vihar, Ghaziabad. Starting from ₹2.20 Cr*. Floor plans, amenities, specifications and location. UP RERA registered.',
+    'Explore Apex Rosario in Siddharth Vihar, Ghaziabad. Discover RERA-registered, Roman-inspired luxury 3 & 4 BHK apartments, floor plans, prices and amenities.',
   ogImage: '/assets/rosario/exterior/rosario-towers.jpg',
 };
