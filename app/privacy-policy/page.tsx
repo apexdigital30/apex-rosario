@@ -2,7 +2,11 @@ import type { Metadata } from 'next';
 import { LegalPage } from '@/components/LegalPage';
 import { contact } from '@/data/rosario';
 
-export const metadata: Metadata = { title: 'Privacy Policy', robots: { index: false } };
+export const metadata: Metadata = {
+  title: 'Privacy Policy',
+  description: 'Read the Apex Rosario Privacy Policy to understand how we collect, use, store and protect your personal information when you visit our website.',
+  robots: { index: false },
+};
 
 export default function PrivacyPolicyPage() {
   return (
